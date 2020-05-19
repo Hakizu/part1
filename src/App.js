@@ -1,8 +1,6 @@
 import React,{useState, useEffect} from 'react'
-import axios from 'axios'
 import Note from './Components/Note'
 import notesServices from './services/notes'
-
 
 const App = (props) => {
     const [notes, setNotes] = useState([])
@@ -36,8 +34,6 @@ const App = (props) => {
     const toggleImportanceOf = (id) => {
         const note = notes.find(n => n.id === id)
         const changedNote = {...note, important : ! note.important}
-        console.log(changedNote)
-        console.log(note)
         
         notesServices
             .update(id, changedNote)
