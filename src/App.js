@@ -7,7 +7,7 @@ const App = (props) => {
     const [notes, setNotes] = useState([])
     const [newNote, setNewNote] = useState("")
     const [showAll, setShowAll] = useState(true)
-    const [errorMessage, setErrorMessage] = useState('awww shucks...')
+    const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect (() => {
         notesServices
@@ -34,13 +34,17 @@ const App = (props) => {
     }
 
     const toggleImportanceOf = (id) => {
+        console.log(`${id},,,,`)
+        const url = `http://localhost:3001/notes/${id}`
         const note = notes.find(n => n.id === id)
-        const changedNote = {...note, important : ! note.important}
+        const changedNote = {...note, important: !note.important}
+        console.log(changedNote)
         
         notesServices
             .update(id, changedNote)
             .then(response => {
-                setNotes(notes.map(note => note.id !== id ? note : response))
+                setNotes(notes.map(note => 
+                    note.id !== id ? note : response))
             })  
             .catch(error => {
                 setErrorMessage( 
@@ -65,12 +69,12 @@ const App = (props) => {
       <div>
         <h1>Notes</h1>
         <Notification message={errorMessage}/>
-        <div>
+        <div className='show'>
             <button onClick={() => setShowAll(!showAll)}>
                 show{showAll ? ' important' : ' all'}
             </button>
         </div>
-        <ul>
+        <table><tbody>
           {notesToShow.map((note, i) => 
             <Note 
                 key={i} 
@@ -78,7 +82,7 @@ const App = (props) => {
                 toggleImportance={() => toggleImportanceOf(note.id)}
             />
           )}
-        </ul>
+        </tbody></table>
         <form onSubmit={addNOte}>
             <input 
                 value={newNote}

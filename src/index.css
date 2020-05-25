@@ -7,10 +7,20 @@ li {
   padding-top: 3px;
   font-size:  15px;
 }
+table {
+  border: 2px  darkblue;
+}
+.show, h1 {
+  margin-left: 150px;
+}
+
 .note {
-  color: grey;
-  padding-top: 5px;
+  color: rgb(27, 7, 7);
+  padding: 15px;
   font-size: 15px;
+}
+.button {
+  padding: 2px;
 }
 .error {
   color: darkblue;
