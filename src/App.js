@@ -15,7 +15,7 @@ const App = (props) => {
             .then(response => {
                 setNotes(response)
         })
-    }, [notes])
+    }, [])
 
     const addNOte =event =>{
         event.preventDefault()
