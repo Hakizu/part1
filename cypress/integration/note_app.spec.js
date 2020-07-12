@@ -43,10 +43,7 @@ describe('Note app', function() {
 
   describe('when logged in', function() {
     beforeEach(function() {
-      cy.contains('login').click()
-      cy.get('input:first').type('hakizu')
-      cy.get('input:last').type('salts')
-      cy.get('#login-button').click()
+      cy.login({ username: 'hakizu', password: 'salts' })
     })
 
     it('a new note can be created', function () {
@@ -58,9 +55,10 @@ describe('Note app', function() {
 
     describe('and a note exists', function () {
       beforeEach(function () {
-        cy.contains('New Note').click()
-        cy.get('input').type('another note cypress')
-        cy.contains('Save').click()
+        cy.createNote({
+          content: 'another note cypress',
+          important: false
+        })
       })
 
       it('it can be made important', function () {
